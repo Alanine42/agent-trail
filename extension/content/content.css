@@ -1,0 +1,242 @@
+/* ============================================
+   Trailmark — Content Script Styles
+   ============================================ */
+
+/* Highlight overlay */
+mark.trailmark-highlight {
+  background-color: rgba(255, 213, 79, var(--trailmark-opacity, 0.30));
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  position: relative;
+}
+
+mark.trailmark-highlight:hover {
+  background-color: rgba(255, 213, 79, 0.50);
+}
+
+/* Small indicator for highlights with comments or agent authorship */
+mark.trailmark-highlight[data-has-comment]::after {
+  content: '💬';
+  font-size: 10px;
+  position: relative;
+  top: -8px;
+  margin-left: 1px;
+}
+
+mark.trailmark-highlight[data-author="agent"]::after {
+  content: '🤖';
+  font-size: 10px;
+  position: relative;
+  top: -8px;
+  margin-left: 1px;
+}
+
+/* ---- Floating Toolbar ---- */
+.trailmark-toolbar {
+  position: absolute;
+  z-index: 2147483647;
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.24);
+  animation: trailmark-fade-in 0.12s ease-out;
+}
+
+.trailmark-toolbar button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.1s ease;
+}
+
+.trailmark-toolbar button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.trailmark-toolbar button:active {
+  background: rgba(255, 255, 255, 0.20);
+}
+
+/* ---- Comment Input ---- */
+.trailmark-comment-input {
+  position: absolute;
+  z-index: 2147483647;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.24);
+  animation: trailmark-fade-in 0.12s ease-out;
+  min-width: 260px;
+}
+
+.trailmark-comment-input textarea {
+  all: unset;
+  color: #e0e0e0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  resize: vertical;
+  min-height: 48px;
+}
+
+.trailmark-comment-input textarea:focus {
+  border-color: rgba(255, 213, 79, 0.5);
+}
+
+.trailmark-comment-input .trailmark-comment-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.trailmark-comment-input button {
+  all: unset;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.trailmark-comment-input button.trailmark-save {
+  background: rgba(255, 213, 79, 0.8);
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.trailmark-comment-input button.trailmark-save:hover {
+  background: rgba(255, 213, 79, 1);
+}
+
+.trailmark-comment-input button.trailmark-cancel {
+  color: #999;
+}
+
+.trailmark-comment-input button.trailmark-cancel:hover {
+  color: #ccc;
+}
+
+/* ---- Annotation Popover ---- */
+.trailmark-popover {
+  position: absolute;
+  z-index: 2147483647;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.32);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  max-width: 340px;
+  min-width: 240px;
+  animation: trailmark-fade-in 0.12s ease-out;
+  overflow: hidden;
+}
+
+.trailmark-popover-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  color: #999;
+}
+
+.trailmark-popover-author {
+  font-weight: 600;
+  color: #ccc;
+}
+
+.trailmark-popover-body {
+  padding: 10px 12px;
+}
+
+.trailmark-popover-comment {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.trailmark-popover-type {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  background: rgba(255, 213, 79, 0.15);
+  color: rgba(255, 213, 79, 0.9);
+}
+
+.trailmark-popover-type[data-type="agent_marker"] {
+  background: rgba(91, 155, 213, 0.15);
+  color: rgba(91, 155, 213, 0.9);
+}
+
+.trailmark-popover-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 6px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.trailmark-popover-footer button {
+  all: unset;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  color: #999;
+  transition: all 0.1s ease;
+}
+
+.trailmark-popover-footer button:hover {
+  color: #e0e0e0;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.trailmark-popover-footer button.trailmark-delete:hover {
+  color: #E05252;
+}
+
+/* ---- Toast ---- */
+.trailmark-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2147483647;
+  padding: 8px 16px;
+  background: #1a1a1a;
+  color: rgba(255, 213, 79, 0.9);
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.24);
+  animation: trailmark-fade-in 0.15s ease-out;
+}
+
+/* ---- Animations ---- */
+@keyframes trailmark-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}

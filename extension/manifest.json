@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Trailmark",
+  "version": "0.1.0",
+  "description": "Persistent web annotations for humans and AI agents",
+  "permissions": [
+    "activeTab",
+    "sidePanel",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["lib/anchoring.js", "content/content.js"],
+      "css": ["content/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "side_panel": {
+    "default_path": "sidepanel/sidepanel.html"
+  },
+  "action": {
+    "default_title": "Trailmark"
+  },
+  "icons": {}
+}
