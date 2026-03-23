@@ -1,8 +1,10 @@
-# Trailmark
+# Trailmark / Agent Trail
 
 Persistent web annotations for humans and AI agents.
 
-*Highlight, comment, ask, agent trail, persistence.*
+Agentic browsers are racing to automate browsing away — browse for you, summarize for you, buy for you. But browsing as a *reading and learning activity* is being ignored. When an AI coding agent reads documentation to implement a feature, its understanding is silo inside the context window. When you later visit those same doc pages, there's zero trace of the work that was done. Every page is a blank slate, every visit starts from scratch.
+
+This is a Chrome extension + agent hooks + server project that creates a persistent annotation layer on any web page, where both humans and AI agents can highlight and annotate.
 
 ## Quick Start
 
@@ -48,8 +50,7 @@ curl http://localhost:3773/health
 ### 5. Test it (Agent)
 1. Spawn a Claude Code in terminal
 2. Give it a task that involves fetching website (e.g. `"fetch aws dynamodb transaction write item documentation and answer how many WCU it uses"`)
-3. Go to the website it fetched (e.g. [https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html))
-4. See the agent's highlight that helped it answer the question and its comment on why that line is helpful / the goal that made it fetch this.
+3. Go to the website it fetched (e.g. [https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html)) and see the agent's highlight on the quote that helped it answer the question and its comment on why that line is helpful / the goal that made it fetch this.
 5. Refresh the page, the highlight annotation should persist.
 
 ## Architecture
@@ -64,7 +65,7 @@ Everything goes through the local bridge server. One SQLite database, two writer
 ## Project Structure
 
 ```
-trailmark/
+agent-trail/
 ├── server/
 │   └── server.py              # Local bridge server (REST API over SQLite)
 ├── extension/
