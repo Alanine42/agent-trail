@@ -6,6 +6,10 @@ Agentic browsers are racing to automate browsing away — browse for you, summar
 
 This is a Chrome extension + agent hooks + server project that creates a persistent annotation layer on any web page, where both humans and AI agents can highlight and annotate.
 
+
+https://github.com/user-attachments/assets/4e1c0444-6049-47d7-b27d-e6d6c86de671
+
+
 ## Quick Start
 
 ### 1. Start the bridge server
